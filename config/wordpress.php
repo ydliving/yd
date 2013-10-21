@@ -21,6 +21,10 @@ if (file_exists(APP_ROOT . '/config/env/local.php')) {
 	require APP_ROOT . '/config/env/development.php';
 }
 
+/** require composer autoload file **/
+
+require APP_ROOT . '/vendor/autoload.php';
+
 $table_prefix  = 'wp_';
 
 define('WPLANG', 'zh_CN');
