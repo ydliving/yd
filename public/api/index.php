@@ -30,6 +30,18 @@ $api = new \Slim\Slim(array(
 
 
 $api->get("/:type", function($type) use($api){
+	// $creds = array();
+	// $creds['user_login'] = '1222';
+	// $creds['user_password'] = '111';
+	// $creds['remember'] = true;
+	// $user = wp_signon( $creds, false );
+	// if ( is_wp_error($user) )
+	// 	echo $user->get_error_message();
+
+	// if(is_user_logged_in()) {
+	// 	wp_redirect(wp_login_url());
+	// 	exit;
+	// }
 	$args = ['post_type' => $type] + $api->request()->get();
 	$payload = \app\models\WPObject::find($args);
 

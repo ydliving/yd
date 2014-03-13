@@ -25,7 +25,6 @@ class CPT_ONOMIES_ADMIN {
 	 *
 	 * @since 1.0
 	 */
-	public function CPT_ONOMIES_ADMIN() { $this->__construct(); }
 	public function __construct() {
 		if ( is_admin() ) {
 		
@@ -76,6 +75,7 @@ class CPT_ONOMIES_ADMIN {
 				
 		}	
 	}
+	public function CPT_ONOMIES_ADMIN() { $this->__construct(); }
 	
 	/**
 	 * The usual admin page for managing terms is edit-tags.php but we do not
@@ -775,30 +775,33 @@ class CPT_ONOMIES_ADMIN {
 	 */
 	public function bulk_quick_edit_custom_box( $column_name, $post_type ) {
 		global $cpt_onomies_manager;
-		if ( strpos( $column_name, CPT_ONOMIES_UNDERSCORE ) !== false ) {
+		
+		// allows bulk and quick edit whether the column was added via WordPress register_taxonomy() or CPT-onomies.
+		// WP < 3.5 is added via CPT-onomies, WP >= 3.5 is added via register_taxonomy()'s 'show_admin_column'.
+		$taxonomy = NULL;
+		if ( strpos( $column_name, CPT_ONOMIES_UNDERSCORE ) !== false )
 			$taxonomy = strtolower( str_replace( CPT_ONOMIES_UNDERSCORE . '_', '', $column_name ) );
-			if ( taxonomy_exists( $taxonomy ) && $cpt_onomies_manager->is_registered_cpt_onomy( $taxonomy ) ) {
-				$tax = get_taxonomy( $taxonomy );				
-				?>
-				
-				<fieldset class="inline-edit-col-center inline-edit-<?php echo $taxonomy; ?>"><div class="inline-edit-col">
-				
-                    <span class="title inline-edit-<?php echo $taxonomy; ?>-label"><?php echo esc_html( $tax->labels->name ) ?>
-                        <span class="catshow">[<?php _e( 'more', CPT_ONOMIES_TEXTDOMAIN ); ?>]</span>
-                        <span class="cathide" style="display:none;">[<?php _e( 'less', CPT_ONOMIES_TEXTDOMAIN ); ?>]</span>
-                    </span>
-                    <ul class="cat-checklist cpt-onomy-checklist cpt-onomy-<?php echo esc_attr( $taxonomy )?>">
-                        <?php wp_terms_checklist( NULL, array( 'taxonomy' => $taxonomy, 'walker' => new CPTonomy_Walker_Terms_Checklist() ) ); ?>
-                    </ul>
-                    
-                    <?php // these variables help with processing/saving the info ?>
-                    <input type="hidden" name="is_bulk_quick_edit" value="true" />
-                  	<input type="hidden" name="<?php echo 'assign_cpt_onomies_' . $taxonomy . '_rel'; ?>" value="true" />
-				
-				</div></fieldset>
-                              
-			<?php }
-		}				
+		else if ( strpos( $column_name, 'taxonomy-' ) !== false )
+			$taxonomy = strtolower( str_replace( 'taxonomy-', '', $column_name ) );
+			
+		if ( $taxonomy && taxonomy_exists( $taxonomy ) && $cpt_onomies_manager->is_registered_cpt_onomy( $taxonomy ) ) {
+			$tax = get_taxonomy( $taxonomy );				
+			?><fieldset class="inline-edit-col-center inline-edit-<?php echo $taxonomy; ?>"><div class="inline-edit-col">
+			
+                <span class="title inline-edit-<?php echo $taxonomy; ?>-label"><?php echo esc_html( $tax->labels->name ) ?>
+                    <span class="catshow">[<?php _e( 'more', CPT_ONOMIES_TEXTDOMAIN ); ?>]</span>
+                    <span class="cathide" style="display:none;">[<?php _e( 'less', CPT_ONOMIES_TEXTDOMAIN ); ?>]</span>
+                </span>
+                <ul class="cat-checklist cpt-onomy-checklist cpt-onomy-<?php echo esc_attr( $taxonomy )?>">
+                    <?php wp_terms_checklist( NULL, array( 'taxonomy' => $taxonomy, 'walker' => new CPTonomy_Walker_Terms_Checklist() ) ); ?>
+                </ul>
+                
+                <?php // these variables help with processing/saving the info ?>
+                <input type="hidden" name="is_bulk_quick_edit" value="true" />
+              	<input type="hidden" name="<?php echo 'assign_cpt_onomies_' . $taxonomy . '_rel'; ?>" value="true" />
+			
+			</div></fieldset><?php
+		}
 	}
 	
 	/**
@@ -1005,8 +1008,7 @@ class CPT_ONOMIES_ADMIN {
 				else {
 				
 					// this filter allows you to remove the column by returning false
-					// if 'show_ui' is false, do not add column. default is true/add the column.
-					if ( apply_filters( 'custom_post_type_onomies_add_cpt_onomy_admin_column', ( post_type_exists( $taxonomy ) ? get_post_type_object( $taxonomy )->show_ui : true ), $taxonomy, $post_type ) ) {
+					if ( apply_filters( 'custom_post_type_onomies_add_cpt_onomy_admin_column', ( isset( $tax->show_admin_column ) && ! $tax->show_admin_column ) ? false : true, $taxonomy, $post_type ) ) {
 					
 						// want to add before comments and date
 						$split = -1;
@@ -1182,11 +1184,11 @@ class CPTonomy_Walker_Terms_Checklist extends Walker {
 		$output .= "$indent</ul>\n";
 	}
 	
-	function start_el( &$output, $category, $depth, $args, $id = 0 ) {
+	function start_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ) {
 		extract( $args );
 		if ( !empty( $taxonomy ) ) {
-			$class = in_array( $category->term_id, $popular_cats ) ? ' class="popular-category"' : '';
-			$output .= "\n<li id='{$taxonomy}-{$category->term_id}'$class>" . '<label class="selectit"><input value="' . $category->term_id . '" type="checkbox" name="' . CPT_ONOMIES_POSTMETA_KEY . '[' . $taxonomy . '][]" id="in-'.$taxonomy.'-' . $category->term_id . '"' . checked( in_array( $category->term_id, $selected_cats ), true, false ) . disabled( empty( $args[ 'disabled' ] ), false, false ) . ' /> ' . esc_html( apply_filters( 'the_category', $category->name )) . '</label>';
+			$class = in_array( $object->term_id, $popular_cats ) ? ' class="popular-category"' : '';
+			$output .= "\n<li id='{$taxonomy}-{$object->term_id}'$class>" . '<label class="selectit"><input value="' . $object->term_id . '" type="checkbox" name="' . CPT_ONOMIES_POSTMETA_KEY . '[' . $taxonomy . '][]" id="in-'.$taxonomy.'-' . $object->term_id . '"' . checked( in_array( $object->term_id, $selected_cats ), true, false ) . disabled( empty( $args[ 'disabled' ] ), false, false ) . ' /> ' . esc_html( apply_filters( 'the_category', $object->name )) . '</label>';
 		}
 	}
 
