@@ -6,7 +6,7 @@ define('APP_ENV', getenv('APPLICATION_ENV'));
 
 // define('ABSPATH', APP_ROOT . '/public/site/');
 
-define('WP_HOME', 'http://wp.local');
+define('WP_HOME', 'http://yd.local');
 define('WP_SITEURL', WP_HOME . '/site/');
 define('WP_CONTENT_DIR', APP_ROOT . '/public/content');
 define('WP_CONTENT_URL', WP_HOME . '/content');

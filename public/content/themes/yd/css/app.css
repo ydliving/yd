@@ -1,0 +1,18 @@
+#your-profile .form-table {
+	width: 100%;
+}
+.sidebar {
+	background: #fdfdfa;
+	border: 1px solid #eee;
+	padding: 25px 22px;
+	margin-top: 40px;
+}
+.top_right  {
+	position: relative;
+
+}
+.top_right .inline-list {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
