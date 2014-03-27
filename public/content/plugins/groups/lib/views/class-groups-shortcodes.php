@@ -432,7 +432,7 @@ class Groups_Shortcodes {
 					$output .= '<form action="#" method="post">';
 					$output .= '<input type="hidden" name="groups_action" value="join" />';
 					$output .= '<input type="hidden" name="group_id" value="' . esc_attr( $current_group->group_id ) . '" />';
-					$output .= '<input type="submit" value="' . $submit_text . '" />';
+					$output .= '<input type="submit" class="button" value="' . $submit_text . '" />';
 					$output .=  wp_nonce_field( $nonce_action, $nonce, true, false );
 					$output .= '</form>';
 					$output .= '</div>';
@@ -508,7 +508,7 @@ class Groups_Shortcodes {
 					$output .= '<form action="#" method="post">';
 					$output .= '<input type="hidden" name="groups_action" value="leave" />';
 					$output .= '<input type="hidden" name="group_id" value="' . esc_attr( $current_group->group_id ) . '" />';
-					$output .= '<input type="submit" value="' . $submit_text . '" />';
+					$output .= '<input type="submit"  class="button" value="' . $submit_text . '" />';
 					$output .=  wp_nonce_field( $nonce_action, $nonce, true, false );
 					$output .= '</form>';
 					$output .= '</div>';

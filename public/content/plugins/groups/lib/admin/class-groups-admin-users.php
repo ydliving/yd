@@ -58,9 +58,9 @@ class Groups_Admin_Users {
 				// allow to add or remove selected users to groups
 				add_action( 'load-users.php', array( __CLASS__, 'load_users' ) );
 				// add links to filter users by group
-				add_filter( 'views_users', array( __CLASS__, 'views_users' ) );
+				/* add_filter( 'views_users', array( __CLASS__, 'views_users' ) ); */
 				// modify query to filter users by group
-				add_filter( 'pre_user_query', array( __CLASS__, 'pre_user_query' ) );
+				/* add_filter( 'pre_user_query', array( __CLASS__, 'pre_user_query' ) ); */
 				// WP_Users_List_Table implements extra_tablenav() where the restrict_manage_users action is invoked.
 				// As the extra_tablenav() method does not define a generic extension point, this is
 				// the best shot we get at inserting our group actions block (currently we're at WordPress 3.6.1). 

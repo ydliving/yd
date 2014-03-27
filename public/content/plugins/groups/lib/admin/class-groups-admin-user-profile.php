@@ -1,4 +1,4 @@
-<?php
+=<?php
 /**
  * class-groups-admin-user-profile.php
  *
