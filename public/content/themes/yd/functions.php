@@ -17,20 +17,22 @@ add_filter('single_template', 'my_single_template');
 function my_single_template($single) {
 	global $wp_query, $post;
 
-/**
-* Checks for single template by category
-* Check by category slug and ID
-*/
-foreach((array)get_the_category() as $cat) :
+  if(file_exists(SINGLE_PATH . '/single-' . $post->post_type. '.php'))
+    return SINGLE_PATH . '/single-' . $post->post_type . '.php';
 
-	if(file_exists(SINGLE_PATH . '/single-cat-' . $cat->slug . '.php'))
-		return SINGLE_PATH . '/single-cat-' . $cat->slug . '.php';
+  /**
+   * Checks for single template by category
+   * Check by category slug and ID
+   */
+  foreach((array)get_the_category() as $cat) :
 
-	elseif(file_exists(SINGLE_PATH . '/single-cat-' . $cat->term_id . '.php'))
-		return SINGLE_PATH . '/single-cat-' . $cat->term_id . '.php';
+    if(file_exists(SINGLE_PATH . '/single-cat-' . $cat->slug . '.php'))
+      return SINGLE_PATH . '/single-cat-' . $cat->slug . '.php';
 
-	endforeach;
+    elseif(file_exists(SINGLE_PATH . '/single-cat-' . $cat->term_id . '.php'))
+      return SINGLE_PATH . '/single-cat-' . $cat->term_id . '.php';
 
+  endforeach;
 }
 
 // function hack_time( $post_id ) {
@@ -76,10 +78,10 @@ add_theme_support('menu');
 
 function yd_styles()
 {
-	wp_enqueue_style( 'style',get_template_directory_uri() . '/style.css' );
 	wp_enqueue_style( 'lightbox',get_template_directory_uri() . '/css/lightbox.css' );
 	wp_enqueue_style( 'foundation',get_template_directory_uri() . '/css/foundation.css' );
 	wp_enqueue_style( 'app',get_template_directory_uri() . '/css/app.css' );
+	wp_enqueue_style( 'style',get_template_directory_uri() . '/style.css' );
 }
 
 if (!is_admin()) add_action( 'wp_enqueue_scripts', 'yd_styles' );

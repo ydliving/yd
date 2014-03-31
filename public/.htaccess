@@ -9,18 +9,5 @@
 
 
 # BEGIN WordPress
-<IfModule mod_rewrite.c>
-RewriteEngine On
-Options +SymLinksIfOwnerMatch
-RewriteBase /
-
-RewriteRule ^groups/([^-]*)/([^-]*)$ ?pagename=my-group&page_id=113&group_id=$1&action=$2 [QSA,L]
-
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-RewriteRule . /index.php [L]
-</IfModule>
 
 # END WordPress

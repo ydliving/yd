@@ -3,7 +3,6 @@
 /*
 Template Name: Stories
 */
-
 ?>
 <?php get_header( $name = null ) ?>
 
@@ -19,19 +18,16 @@ $args = array(
 $the_query = new WP_Query( $args );	
 
 ?>
-
-<?php if( $the_query->have_posts()) : while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-
-		<div class="st_left">
-		<div class="story_con">
-		<div class="story_title"><?php the_title(); ?></div>
-			<div class="story_date">时间：<?php the_date( );?></div>
-			<?php the_content() ?>
-		</div>
-
-
-<?php endwhile; endif; ?>
-
-<?php get_sidebar( 'stories' ) ?>
+<div class="ac_con">
+  <?php if( $the_query->have_posts()) : while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+      <div class="st_left">
+      <div class="story_con">
+      <div class="story_title"><?php the_title(); ?></div>
+        <div class="story_date">时间：<?php the_date( );?></div>
+        <?php the_content() ?>
+      </div>
+  <?php endwhile; endif; ?>
+  <?php get_sidebar( 'stories' ) ?>
+</div>
 
 <?php get_footer(); ?>
