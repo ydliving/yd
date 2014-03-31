@@ -1,12 +1,6 @@
 <?php
-
-
 namespace app\traits;
-
-
-
 trait PropertyExtract {
-
 	protected function extract($properties, $modifiers = [], $ifExists = true) {
 		foreach ((array)$properties as $key => $value) {
 			

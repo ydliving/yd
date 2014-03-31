@@ -24,12 +24,11 @@ function boj_rrs_add_rules() {
 add_filter( 'query_vars', 'boj_rrs_add_query_var' ); 
 
 function boj_rrs_add_query_var( $vars ) {
-$vars[] = 'group_id';
-$vars[] = 'action';
-$vars[] = 'page_id';
-return $vars; 
+  $vars[] = 'group_id';
+  $vars[] = 'action';
+  $vars[] = 'page_id';
+  return $vars; 
 }
-
 
 add_filter( 'login_url' , 'force_reauth_to_0', 100 );
 
@@ -43,8 +42,6 @@ add_action( 'init', 'do_ob_start' );
 function do_ob_start(){
 	ob_start();
 }
-
-
 
 function create_group_form($atts, $content = null ) {
 
@@ -63,47 +60,32 @@ function create_group_form($atts, $content = null ) {
 				// TODO: 跳转url
 				// wp_redirect('', '')		
 		}
-
-		
 		// if ( !current_user_can( GROUPS_ADMINISTER_GROUPS ) ) {
 		// 	wp_die( __( 'Access denied.', GROUPS_PLUGIN_DOMAIN ) );
 		// }
-		
 		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		$current_url = remove_query_arg( 'paged', $current_url );
 		$current_url = remove_query_arg( 'action', $current_url );
 		$current_url = remove_query_arg( 'capability_id', $current_url );
-		
 		$capability  = isset( $_POST['capability-field'] ) ? $_POST['capability-field'] : '';
 		$description = isset( $_POST['description-field'] ) ? $_POST['description-field'] : '';
-		
 		$capability_table = _groups_get_tablename( 'capability' );
-
 		require ('views/new.php');
-		
 		$content = ob_get_clean();
-
 		return $content;
-			
-
 }
 
 add_shortcode( 'add_group_form', 'create_group_form' );
 
-
 function my_group_list($atts, $content = null ){
 
-
 	is_user_logged_in() || auth_redirect();
-
 	global $wpdb;
-
 	global $user_ID;
-
 	global $wp_query;
 
 	// var_dump($wp_query);
-
+  
 	# ACTION VIEW
 
 	if (isset($_GET['action']) && $_GET['action'] == 'show') {
@@ -120,15 +102,12 @@ function my_group_list($atts, $content = null ){
 		exit();
 	}
 
-
 	# ACTION EDIT
 
 	if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 		echo "edit";
 		exit();
 	}
-
-
 	
 	# ACTION JOIN
 
@@ -136,9 +115,6 @@ function my_group_list($atts, $content = null ){
 		echo "edit";
 		exit();
 	}
-
-
-
    
 	# ACION INDEX
 	# FILTER
@@ -156,7 +132,6 @@ function my_group_list($atts, $content = null ){
 	} else {
 		$filters = '';
 	}
-
 
 	# ORDER 
 
@@ -186,9 +161,7 @@ function my_group_list($atts, $content = null ){
 
 	# PAGNATE
 
-	
 	define(GROUPS_GROUPS_PER_PAGE, 10);
-
 
 	$paged = isset( $_GET['paged'] ) ? intval( $_GET['paged'] ) : 0;
 
@@ -199,7 +172,6 @@ function my_group_list($atts, $content = null ){
 	} else {
 		Groups_Options::update_user_option('groups_per_page', $row_count );
 	}
-
 
 	$count_query = $wpdb->prepare( "SELECT COUNT(*) FROM $group_table $filters", $filter_params );
 
@@ -213,7 +185,6 @@ function my_group_list($atts, $content = null ){
 	if ( $paged > $pages ) {
 		$paged = $pages;
 	}
-	
 
 	$offset = isset( $_GET['offset'] ) ? intval( $_GET['offset'] ) : 0;
 	if ( $offset < 0 ) {
@@ -233,10 +204,8 @@ function my_group_list($atts, $content = null ){
 	);
 
 	$results = $wpdb->get_results( $query, OBJECT );
-	
 
 	require('views/index.php');
-
  
 }
 

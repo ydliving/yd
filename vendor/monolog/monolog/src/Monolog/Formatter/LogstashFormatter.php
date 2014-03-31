@@ -90,7 +90,7 @@ class LogstashFormatter extends NormalizerFormatter
         }
 
         foreach ($record['context'] as $key => $val) {
-            $message['@fields'][$this->contextPrefix . $key] = $val;
+          $message['@fields'][$this->contextPrefix . $key] = $val;
         }
 
         return json_encode($message) . "\n";

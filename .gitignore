@@ -1,4 +1,5 @@
 public/content/uploads/*
 vendor
 log/*
+*.swp
 

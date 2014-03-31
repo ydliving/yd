@@ -34,3 +34,7 @@ if ( !defined('ABSPATH') )
 
 if (!class_exists('WP_CLI\Runner'))
         require_once(ABSPATH . 'wp-settings.php');
+
+
+define( 'ATTACHMENTS_LEGACY', true ); // force the legacy version of Attachments
+
