@@ -101,7 +101,6 @@ function yd_scripts ()
 add_action( 'wp_enqueue_scripts', 'yd_scripts' );
 
 
-
 /**
  * Twenty Fourteen functions and definitions
  *
