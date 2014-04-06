@@ -1,13 +1,15 @@
 # SetEnv APPLICATION_ENV  "development"
 
+<IfModule mod_rewrite.c>
+RewriteEngine On
+Options +SymLinksIfOwnerMatch
+RewriteBase /
 
-# BEGIN WordPress
+RewriteRule ^groups/([^-]*)/([^-]*)$ ?pagename=my-group&page_id=113&group_id=$1&action=$2 [QSA,L]
 
-# END WordPress
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 
-# SetEnv APPLICATION_ENV  "development"
-
-
-# BEGIN WordPress
-
-# END WordPress
+RewriteRule . /index.php [L]
+</IfModule>

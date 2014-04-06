@@ -9,13 +9,6 @@
 <body <?php echo body_class(); ?> >
 
 	<div class="yd_con">
-		<div class="opinion">
-			<a href="/feedbacks/new" class="pc1_img ajax" data-remote="true">意见反馈</a>
-		</div>
-
-		<div id="feedback">
-
-		</div>
 
 		<div class="top_line"></div>
 
