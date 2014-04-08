@@ -43,5 +43,49 @@ function do_ob_start(){
 	ob_start();
 }
 
+add_action('groups_created_group', 'add_more_fields');
+
+function add_more_fields($results){
+	global $wpdb;
+	$group_table = _groups_get_tablename( 'group' );
+	$group_id = $results;
+
+	if(isset($_POST['slogon-field']) || isset($_POST['goal-field'])) {
+		$slogon = $_POST['slogon-field'];
+		$goal = $_POST['goal-field'];
+		$prepare = $wpdb->prepare(
+			"UPDATE $group_table SET slogon = %s, goal = %s WHERE group_id = %d",
+			$slogon,
+			$goal,
+			Groups_Utility::id( $group_id )
+		);
+		$wpdb->query($prepare);
+	}
+	return $results;
+}
+
+
+add_action('groups_updated_group', 'update_more_fields');
+
+function update_more_fields($results){
+	global $wpdb;
+	$group_table = _groups_get_tablename( 'group' );
+	$group_id = $results;
+
+	if(isset($_POST['slogon-field']) || isset($_POST['goal-field'])) {
+		$slogon = $_POST['slogon-field'];
+		$goal = $_POST['goal-field'];
+		$prepare = $wpdb->prepare(
+			"UPDATE $group_table SET slogon = %s, goal = %s WHERE group_id = %d",
+			$slogon,
+			$goal,
+			Groups_Utility::id( $group_id )
+		);
+		$wpdb->query($prepare);
+	}
+	return $results;
+}
+
+
 
 ?>

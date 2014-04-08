@@ -11,10 +11,25 @@
 			</div>
 
 			<div class="field">
+				<label for="slogon-field" class="field-label first required">
+					筹款宣言
+				</label>
+				<input id="slogon-field" name="slogon-field" class="slogonfield" type="text" value="<?php echo esc_attr( stripslashes( $slogon ) ) ?>"/>
+			</div>
+
+			<div class="field">
+				<label for="goal-field" class="field-label first required">
+					筹款目标
+				</label>
+				<input id="goal-field" name="goal-field" class="goalfield" type="text" value="<?php echo esc_attr( stripslashes( $goal ) ) ?>"/>
+			</div>
+
+			<div class="field">
 				<label for="description-field" class="field-label description-field">
 					描述
 				</label>
 				<textarea id="description-field" name="description-field" rows="5" cols="45"> 
+				<?php echo esc_attr( stripslashes( $description ) ) ?>
 				</textarea>
 			</div>
 

@@ -1,0 +1,25 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  reconnect: false
+  database: ydliving
+  pool: 5
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+
+production:
+  adapter: mysql
+  encoding: utf8
+  reconnect: false
+  database: ydliving
+  pool: 5
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+
+test: &test
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 5000

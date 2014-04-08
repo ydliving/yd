@@ -30,7 +30,7 @@ class YdGroupShortcode
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-			$group_id = Groups_Group::create( compact( "creator_id", "datetime", "parent_id", "description", "name" ) );
+			$group_id = Groups_Group::create( compact( "creator_id", "datetime", "parent_id", "description", "name", "slogon", "goal" ) );
 		}
 		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		$current_url = remove_query_arg( 'paged', $current_url );
@@ -71,9 +71,26 @@ class YdGroupShortcode
 		# ACTION EDIT
 
 		if (isset($_GET['action']) && $_GET['action'] == 'edit') {
-			echo "edit";
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+				$name		= isset( $_POST['name-field'] ) ? $_POST['name-field'] : '';
+				$description		= isset( $_POST['description-field'] ) ? $_POST['description-field'] : '';
+				$group_id = get_query_var('group_id');
+
+				$group_id = Groups_Group::update(compact( "group_id", "creator_id", "datetime", "parent_id", "description", "name", "slogon", "goal" ) );
+			}
+			$group_id =  get_query_var( 'group_id' );
+			$group = Groups_Group::read( $group_id );
+			$name = $group->name;
+			$slogon = $group->slogon;
+			$goal = $group->goal;
+			$description = $group->description;
+			require(YDPLUGINPATH . '/views/edit.php');
+
 			exit();
+		
 		}
+
+
 		
 		# ACTION JOIN
 
