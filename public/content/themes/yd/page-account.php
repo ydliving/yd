@@ -6,6 +6,9 @@ Template Name: Account
 
 ?>
 <?php get_header( $name = null ) ?>
+<!-- end w960 -->
+</div>
+<div class="top_line2"></div>
 
 <div class="row">
 	<div class="large-3 medium-4 columns">

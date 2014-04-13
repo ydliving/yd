@@ -35,7 +35,7 @@
 								<?php if( $the_query->have_posts()) : while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 
 								<div class="tcc_img">
-									<?php the_post_thumbnail(array(120, 180)) ?>
+									<?= the_post_thumbnail() ?>
 								</div>
 									<dl class="tcc_text">
 										<dt><?php the_title( $before = '', $after = '', $echo = true ); ?></dt>
@@ -70,21 +70,12 @@
 									<?php
 
 									wp_reset_postdata();
-
-									$argss = array(
-										'post__not_in'  => get_option( 'sticky_posts' ),
-										'ignore_sticky_posts' => false,
-										'post_type' => 'event',
-										'post_limits' => 3, 
-										'nopaging' => true
-										);
-
-									// $args = array(
-									// 	'post__in'  => get_option( 'sticky_posts' ),
-									// 	'post_type' => 'event',
-									// 	'post_limits' => 1
-									// 	);
-
+									$argss = [
+									'cat_id' => 7,
+									'post__in'  => get_option( 'sticky_posts' ),
+									'ignore_sticky_posts' => 1,
+									'posts_per_page' => 3
+									];
 
 									$the_query_2 = new WP_Query( $argss );	
 
@@ -93,13 +84,11 @@
 									<?php while($the_query_2->have_posts()) : $the_query_2->the_post(); ?>
 									<div class="al_1">
 										<span class="ai_img">
-											<a href="<?php the_permalink() ?>">
-												<img src=<?php the_post_thumbnail( array(135, 90) ) ?>
+											<a href="<?= the_permalink() ?>">
+												<?= the_post_thumbnail() ?>
 											</a>	
 										</span>
-										<span class="ai_text">
-											<p><?php the_title() ?></p>
-										</span>
+											<p class="ai_text"><?php the_title() ?></p>
 									</div>
 								  <?php endwhile;  ?>
 								</div>

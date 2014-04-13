@@ -1,5 +1,17 @@
 <?php 
 
+add_filter('nav_menu_css_class' , 'special_nav_class' , 10 , 2);
+function special_nav_class($classes, $item){
+     if( in_array('current-menu-item', $classes) ){
+             $classes[] = 'active ';
+     }
+
+     if($item->ID == 59) {
+     	$classes[] = 'menu_last ';
+     }
+     return $classes;
+}
+
 
 /**
 * Define a constant path to our single template folder
@@ -82,6 +94,7 @@ function yd_styles()
 	wp_enqueue_style( 'foundation',get_template_directory_uri() . '/css/foundation.css' );
 	wp_enqueue_style( 'app',get_template_directory_uri() . '/css/app.css' );
 	wp_enqueue_style( 'style',get_template_directory_uri() . '/style.css' );
+	wp_enqueue_style( 'foundation-datepicker',get_template_directory_uri() . '/css/foundation-datepicker.css' );
 }
 
 if (!is_admin()) add_action( 'wp_enqueue_scripts', 'yd_styles' );
@@ -93,9 +106,11 @@ function yd_scripts ()
 	// wp_enqueue_script('jquery');
 
 	wp_enqueue_script( 'foundation', get_template_directory_uri() . '/js/foundation.js', array('jquery'));
-
+	wp_enqueue_script( 'foundation-datepicker', get_template_directory_uri() . '/js/foundation-datepicker.js', array('foundation'), '', true);
 	wp_enqueue_script( 'lightbox', get_template_directory_uri() . '/js/lightbox.js', array('jquery'));
 	wp_enqueue_script( 'app', get_template_directory_uri() . '/js/app.js', array('jquery'), '', true);
+
+
 }
 
 add_action( 'wp_enqueue_scripts', 'yd_scripts' );

@@ -7,6 +7,12 @@ RewriteBase /
 
 RewriteRule ^groups/([^-]*)/([^-]*)$ ?pagename=my-group&page_id=113&group_id=$1&action=$2 [QSA,L]
 
+RewriteRule ^lines/new$ ?page_id=189 [QSA,L]
+RewriteRule ^lines/([\d]*)/edit$ ?page_id=193&line_id=$1 [QSA,L]
+RewriteRule ^lines/([\d]*)/update$ ?page_id=193&line_id=$1 [QSA,L]
+RewriteRule ^lines/([\d]*)/show$ ?page_id=195&line_id=$1 [QSA,L]
+RewriteRule ^lines/([\d]*)/([^-]*)$ ?page_id=191&line_id=$1&action=$2 [QSA,L]
+
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -102,10 +102,10 @@ input.input1{ background:url(./images/search.gif) no-repeat; border:none; width:
 ul.m1{ display:block; overflow:hidden;}
 ul.m1 li{ display:block; float:left; width:83px; text-align:center;  height:30px; background:url(./images/menu_line.gif) no-repeat right;}
 ul.m1 li.ml_1{ background:none; width:60px; text-align:right;}
-ul.m1 li.menu_last{ background:url(./images/home_btn.jpg) no-repeat; width:72px; margin-left:65px;}
+ul.m1 li.menu_last{ background:url(./images/home_btn.jpg) no-repeat; width:72px; margin-left:38px;}
 .menu a{ display:block; height:30px; line-height:30px;  font-size:14px; font-weight:bold;   }
 .menu a:hover{ color:#ff9600;}
-.menu a.current{color:#ff9600; }
+.menu li.active a{color:#ff9600; }
 .menu a:hover.btn_menu{ color:#fff;}
 
 
@@ -233,7 +233,7 @@ span.abt_con{ padding-left:6px;}
 .mc_button span{ display:block; float:left; margin-right:20px;}
 
 ul.rbc_list{ display:block; overflow:hidden; margin-top:12px; width:250px; margin-bottom:20px;}
-ul.rbc_list li{ display:block; float:left; width:112px; height:168px; border:3px solid #ddd; margin-right:14px; margin-bottom:14px;}
+ul.rbc_list li{ display:block; float:left; width:112px; height:168px; border:3px solid #ddd; margin-right:12px; margin-bottom:14px;}
 ul.rbc_list li.rl_right{ margin-right:0px;}
 
 

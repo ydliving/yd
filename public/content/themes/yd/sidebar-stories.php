@@ -1,6 +1,4 @@
 <div class="acc_right">
-  <div class="sub_img"></div>
-
 
   <div class="sub_list">
     <div class="mission_title"><span class="mt_1">专题列表</span></div>
@@ -27,3 +25,4 @@
    </ul>
  </div>
 </div>
+

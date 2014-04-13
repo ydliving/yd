@@ -38,9 +38,9 @@ if (!class_exists('WP_CLI\Runner'))
 define( 'ATTACHMENTS_LEGACY', true ); // force the legacy version of Attachments
 
 /* ActiveRecord 配置 */
-ActiveRecord\Config::initialize(function($cfg) 
-{
-  $cfg->set_model_directory(APP_ROOT . "/app/models");
-  $cfg->set_connections(array('development' =>
-    'mysql://root@127.0.0.1/ydliving?charset=utf8'));
-});
+/* ActiveRecord\Config::initialize(function($cfg) */ 
+/* { */
+/*   $cfg->set_model_directory(APP_ROOT . "/app/models"); */
+/*   $cfg->set_connections(array('development' => */
+/*     'mysql://root@127.0.0.1/ydliving?charset=utf8')); */
+/* }); */

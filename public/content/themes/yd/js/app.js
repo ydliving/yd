@@ -1,5 +1,13 @@
 (function($) {
+
+	// $('.datepicker').fdatepicker();
 	
     // Inside of this function, $() will work as an alias for jQuery()
     // and other libraries also using $ will not be accessible under this shortcut
-})(jQuery);
+    // $('#dp1').fdatepicker({
+    // 	format: 'yyyy-mm-dd'
+    // });
+    // $('#dp2').fdatepicker({
+    // 	format: 'yyyy-mm-dd'
+    // });
+  })(jQuery);
